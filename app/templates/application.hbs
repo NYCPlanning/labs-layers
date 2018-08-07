@@ -1,5 +1,25 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
+{{!-- {{labs-site-header}} --}}
+<div class="site-main grid-x grid-padding-x grid-padding-y route-{{currentRouteName}}">
+  <div class="cell">
 
-{{outlet}}
+    <h1>Labs Layers</h1>
+
+    {{#mapbox-gl
+      id='map'
+      mapLoaded=(action 'handleMapLoad')
+    }}
+
+    {{/mapbox-gl}}
+
+    <label>{{input type="checkbox" checked=taxLots}} Tax Lots</label>
+    <label>{{input type="checkbox" checked=zoningDistricts}} Zoning Districts</label>
+
+    <form {{action 'getLayerGroups' on='submit'}}>
+      {{textarea style="width:100%;" rows="6" value=layerGroupsJSON}}
+      <button type="submit" class="button">POST</button>
+    </form>
+
+    {{outlet}}
+
+  </div>
+</div>

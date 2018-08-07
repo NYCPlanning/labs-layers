@@ -20,6 +20,15 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    'mapbox-gl': {
+      accessToken: '',
+      map: {
+        style: '//raw.githubusercontent.com/NYCPlanning/labs-gl-style/master/data/style.json',
+        zoom: 12.25,
+        center: [-73.9868, 40.724],
+      },
     }
   };
 
