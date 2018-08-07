@@ -11,10 +11,11 @@
 
     {{/mapbox-gl}}
 
-    <label>{{input type="checkbox" checked=taxLots}} Tax Lots</label>
-    <label>{{input type="checkbox" checked=zoningDistricts}} Zoning Districts</label>
-
     <form {{action 'getLayerGroups' on='submit'}}>
+      <fieldset>
+        {{input type="checkbox" checked=taxLots id="checkbox-taxLots"}}<label for="checkbox-taxLots">Tax Lots</label>
+        {{input type="checkbox" checked=zoningDistricts id="checkbox-zoningDistricts"}}<label for="checkbox-zoningDistricts">Zoning Districts</label>
+      </fieldset>
       {{textarea style="width:100%;" rows="6" value=layerGroupsJSON}}
       <button type="submit" class="button">POST</button>
     </form>
