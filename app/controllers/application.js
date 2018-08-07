@@ -32,8 +32,7 @@ export default class ApplicationController extends Controller {
     })
     .then(response => response.json())
     .then((json) => {
-      // this.set('styleJSON', json.meta);
-      this.map.setStyle(json.meta)
+      this.map.setStyle(json.meta.mapboxStyle)
     })
     // .catch(err => reject(err));
   }
