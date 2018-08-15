@@ -23,6 +23,7 @@ export default class ApplicationController extends Controller {
   getLayerGroups() {
     const layerGroupsJSON = this.get('layerGroupsJSON');
 
+    // fetch(`http://localhost:3000/v1/layer-groups`, {
     fetch(`https://layers-api.planninglabs.nyc/v1/layer-groups`, {
       method: 'POST',
       headers: {
@@ -32,7 +33,17 @@ export default class ApplicationController extends Controller {
     })
     .then(response => response.json())
     .then((json) => {
-      this.map.setStyle(json.meta.mapboxStyle)
+      // how to unpack layers from the jsonapi layergroup response wihtout ember data\
+      const { data, included, meta } = json;
+      this.map.setStyle(meta.mapboxStyle);
+      data.forEach((layerGroup) => {
+        const layerIds = layerGroup.relationships.layers.data.map(d => d.id);
+        layerIds.forEach((layerId) => {
+          const { style: layer } = included.find(d => d.id === layerId).attributes;
+          this.map.addLayer(layer);
+        })
+      })
+
     })
     // .catch(err => reject(err));
   }
